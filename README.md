@@ -22,7 +22,7 @@ The overall approach and bash script I've thrown together isn't perfect, but has
 
 The current SonosControl.sh script was written against SoCo commit hash 0532bdc4f07918acfa289c493ed2ed2d2d0b6be5 of https://github.com/rahims/SoCo, and the following changes were made to a copy of examples/commandline/sonoshell.py included in SoCo. 
 
-9c9
+<pre>9c9
 <     if (len(sys.argv) != 3):
 ---
 >     if (len(sys.argv) < 3):
@@ -70,10 +70,11 @@ The current SonosControl.sh script was written against SoCo commit hash 0532bdc4
 <             print "Valid commands (with IP): info, play, pause, stop, next, previous, current, and partymode"
 ---
 >             print "Valid commands (with IP): info, get_speaker_info, get_current_transport_info, play, pause, stop, next, previous, current, and partymode"
+</pre>
 
 and the following changes made to soco.py:
 
-diff --git a/soco.py b/soco.py
+<pre>diff --git a/soco.py b/soco.py
 index 563632f..8753cc7 100755
 --- a/soco.py
 +++ b/soco.py
@@ -96,6 +97,6 @@ index 563632f..8753cc7 100755
 +        r = requests.post('http://' + self.speaker_ip + ':1400' + endpoint, data=soap, headers=headers, timeout=2)
 
          return r.content
-
+</pre>
 
 I may revise this script in due course to work against the current SoCo/SoCo version.
